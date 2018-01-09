@@ -67,7 +67,24 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    random_bigram = choice(chains.keys())
+        
+    try:
+        next_word = choice(chains[random_bigram])
+
+        words.append(next_word)
+
+        new_key = (words[-2], words[-1])
+
+        # new_text = random_bigram[0] + " " + random_bigram[1]
+
+        # new_text += next_word
+
+        # new_key = (random_bigram[1], next_word)
+
+    except KeyError:
+        
+
 
     return " ".join(words)
 
