@@ -1,23 +1,17 @@
 """Generate Markov text from text files."""
-
-from random import choice
-
-
-def open_and_read_file(file_path):
-    """Take file path as string; return text as string.
-
-    Takes a string that is a file path, opens the file, and turns
-    the file's contents as one string of text.
-    """
     
-    file_obj = open(file_path)
-    text = file_obj.read()
-    file_obj.close()   
+from random import choice
+import sys
+
+# def open_and_read_file():
+   
+    # file_obj.close()
+    # file_obj.close()   
 
     # with open(file_path) as file_obj:
     #     text = file_obj.read()
 
-    return text
+    # return text
 
 
 def make_chains(text_string):
@@ -109,7 +103,6 @@ def make_text(chains):
 
 
 
-
     # while new_key is not None:
         
         
@@ -127,15 +120,15 @@ def make_text(chains):
     return " ".join(words)
 
 
-input_path = "gettysburg.txt"
+path = sys.argv[1]
 
-# Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
-
+with open(path) as file_obj:
+# file_obj = open(file_path)
+    text = file_obj.read()
 
 
 # Get a Markov chain
-chains = make_chains(input_text)
+chains = make_chains(text)
 
 # Produce random text
 random_text = make_text(chains)
