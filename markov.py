@@ -67,26 +67,62 @@ def make_text(chains):
 
     words = []
 
-    random_bigram = choice(chains.keys())
+    # start with an empty list
+    # first, use choice() to select a random key from our dictionary
+    # using that random key, select a random word from the list at the key
+    # append these three words to the empty word list
+    # our new key, will be the last two values of the words list-- we want this returned as a tuple
+    # use this new key to look into the dictionary and at that key, get a new random word out of this new list
+
+    # return a random tuple key from chains using
+    random_starting_bigram = choice(chains.keys())
+
+    # next word will be a random choice from the dictionary at the random starting bigram key
+    next_word = choice(chains[random_starting_bigram]) 
+
+    # casting the tuple as a list
+    random_starting_bigram = list(random_starting_bigram)
+
+    print "Random_bigram", random_starting_bigram
+
+    # extending our empty list words, with the starting_bigram 
+    words.extend(random_starting_bigram)
+
+    # also appending our list with the randomly selected word from our value list in our dict
+    words.append(next_word)
+
+    print words
+
+    ###WHILE LOOP:
+
+    # generating our new bigram by indexing into our list to get our last two values and making that a tuple
+    new_bigram = (words[-2], words[-1])
+
+    print new_bigram
+
+    # getting a random value from our dictionary at new_bigram
+    new_word = choice(chains[new_bigram])
+
+    # appending that new random word to our words list
+    words.append(new_word)
+
+    print words
+
+    # while new_key is not None:
         
-    try:
-        next_word = choice(chains[random_bigram])
-
-        words.append(next_word)
-
-        new_key = (words[-2], words[-1])
-
-        # new_text = random_bigram[0] + " " + random_bigram[1]
-
-        # new_text += next_word
-
-        # new_key = (random_bigram[1], next_word)
-
-    except KeyError:
         
+    #     words.append(next_word)
+
+    #     new_key = (words[-2], words[-1])
+
+    #     # new_text = random_bigram[0] + " " + random_bigram[1]
+
+    #     # new_text += next_word
+
+    #     # new_key = (random_bigram[1], next_word)
 
 
-    return " ".join(words)
+    # return " ".join(words)
 
 
 input_path = "green-eggs.txt"
