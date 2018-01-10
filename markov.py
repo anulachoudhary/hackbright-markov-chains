@@ -81,10 +81,6 @@ def make_text(chains):
     # next word will be a random choice from the dictionary at the random starting bigram key
     next_word = choice(chains[random_starting_bigram]) 
 
-    # casting the tuple as a list
-    # random_starting_bigram = list(random_starting_bigram)
-
-
     # extending our empty list words, with the starting_bigram 
     words.extend(random_starting_bigram)
 
