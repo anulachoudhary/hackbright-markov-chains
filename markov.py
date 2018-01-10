@@ -10,10 +10,12 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
     
-    file_name = open(file_path)
-    text = file_name.read()
-    file_name.close()   
+    file_obj = open(file_path)
+    text = file_obj.read()
+    file_obj.close()   
 
+    # with open(file_path) as file_obj:
+    #     text = file_obj.read()
 
     return text
 
@@ -48,16 +50,15 @@ def make_chains(text_string):
     words = text_string.split()
 
     for i in range(len(words) - 2):
-        keys = (words[i], words[i + 1])
+        key = (words[i], words[i + 1])
 
-        values = words[i + 2]
+        value = words[i + 2]
 
-        if keys not in chains:
+        if key not in chains:
+            chains[key] = []
 
-            chains[keys] = [values]
-
-        else:
-            chains[keys].append(values)
+        
+        chains[key].append(value)
 
     return chains
 
@@ -74,16 +75,15 @@ def make_text(chains):
     # our new key, will be the last two values of the words list-- we want this returned as a tuple
     # use this new key to look into the dictionary and at that key, get a new random word out of this new list
 
-    # return a random tuple key from chains using
+    # return a random tuple key from chains using choice
     random_starting_bigram = choice(chains.keys())
 
     # next word will be a random choice from the dictionary at the random starting bigram key
     next_word = choice(chains[random_starting_bigram]) 
 
     # casting the tuple as a list
-    random_starting_bigram = list(random_starting_bigram)
+    # random_starting_bigram = list(random_starting_bigram)
 
-    print "Random_bigram", random_starting_bigram
 
     # extending our empty list words, with the starting_bigram 
     words.extend(random_starting_bigram)
@@ -91,22 +91,28 @@ def make_text(chains):
     # also appending our list with the randomly selected word from our value list in our dict
     words.append(next_word)
 
-    print words
 
-    ###WHILE LOOP:
+    # WHILE LOOP
+    while True:
 
-    # generating our new bigram by indexing into our list to get our last two values and making that a tuple
-    new_bigram = (words[-2], words[-1])
+        # generating our new bigram by indexing into our list to get our last two values and making that a tuple
+        new_bigram = (words[-2], words[-1])
 
-    print new_bigram
+        # check whethe new_bigram is a key in our dict
+        # if not, break
+        # if so, cont. to new word
 
-    # getting a random value from our dictionary at new_bigram
-    new_word = choice(chains[new_bigram])
+        if new_bigram not in chains:
+            break
+    
+        # getting a random value from our dictionary at new_bigram
+        new_word = choice(chains[new_bigram])
 
-    # appending that new random word to our words list
-    words.append(new_word)
+        # appending that new random word to our words list
+        words.append(new_word)
 
-    print words
+
+
 
     # while new_key is not None:
         
@@ -121,8 +127,8 @@ def make_text(chains):
 
     #     # new_key = (random_bigram[1], next_word)
 
-
-    # return " ".join(words)
+    print " ".join(words)
+    return " ".join(words)
 
 
 input_path = "green-eggs.txt"
